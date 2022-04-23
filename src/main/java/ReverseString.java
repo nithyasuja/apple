@@ -32,9 +32,12 @@ public class ReverseString {
         String reversedString = "";
         int length = str.length();
         char ch;
-        for(int i=0; i<length; i++) {
-            ch = str.charAt(i);
-            reversedString = ch + reversedString;
+//        for(int i=0; i<length; i++) {
+//            ch = str.charAt(i);
+//            reversedString = ch + reversedString;
+//        }
+        for(char newchar: str.toCharArray()){
+            reversedString = newchar + reversedString;
         }
         return reversedString;
     }
