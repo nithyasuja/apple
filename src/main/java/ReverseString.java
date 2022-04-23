@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ReverseString {
@@ -24,22 +25,34 @@ public class ReverseString {
                 System.exit(0);
             }
 
-            System.out.println(reverseString.reverse(input));
+            System.out.println(reverseString.reverseOne(input));
+            System.out.println(reverseString.reverseTwo(input));
+            System.out.println(reverseString.reverseThree(input));
+
         }
     }
 
-    private String reverse(String str) {
+    private String reverseOne(String str) {
         String reversedString = "";
-        int length = str.length();
-        char ch;
-//        for(int i=0; i<length; i++) {
-//            ch = str.charAt(i);
-//            reversedString = ch + reversedString;
-//        }
         for(char newchar: str.toCharArray()){
             reversedString = newchar + reversedString;
         }
         return reversedString;
+    }
+
+    private String reverseTwo(String str) {
+        String reversedString = "";
+        int length = str.length();
+        char ch;
+       for(int i=0; i<length; i++) {
+            ch = str.charAt(i);
+            reversedString = ch + reversedString;
+       }
+       return reversedString;
+    }
+
+    private String reverseThree(String str) {
+        return Arrays.asList(str.split("")).stream().reduce("", (reversedString, strChar) -> strChar + reversedString);
     }
 
 }
