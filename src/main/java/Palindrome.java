@@ -33,13 +33,17 @@ public class Palindrome {
     }
 
     private boolean isPalindrome(String str) {
-//        if(str==null||str.isEmpty()) return false;
+        if(str==null||str.isEmpty()) return false;
 //        String reversedString = Arrays.asList(str.split("")).stream().reduce("", (reverse, a) -> a + reverse);
 //        if(str.equalsIgnoreCase(reversedString)) return true;
 //        return false;
 
+      //this is not the ideal solution as its going to compare two times.
+        //the solution above is better but we can show allmatch java8 proficency
+
         String[] inputStringArray = str.split("");
         int length = inputStringArray.length;
+        //nice way to get the indices when traversing thru a stream
         return IntStream.range(0, length).allMatch(i -> inputStringArray[i].equalsIgnoreCase(inputStringArray[length-1-i]));
 
     }
