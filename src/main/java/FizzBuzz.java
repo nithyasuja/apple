@@ -43,7 +43,8 @@ public class FizzBuzz {
     }
 
     private void determineFizzBuzz(Integer number) {
-        IntStream.range(1, number+1).mapToObj(x -> x%3==0 && x%5==0 ? "fizzbuzz" : x%3==0 ? "fizz" : x%5==0 ? "buzz" : String.valueOf(x)).forEach(System.out::println);
+        IntStream.range(1, number+1).mapToObj(x -> x%3==0 && x%5==0 ? "fizzbuzz" :
+                x%3==0 ? "fizz" : x%5==0 ? "buzz" : String.valueOf(x)).forEach(System.out::println);
 //        if (number%3==0 && number%5==0) return "FizzBuzz";
 //        if(number%3==0) return "Fizz";
 //        if(number%5==0) return "Buzz";
