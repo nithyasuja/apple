@@ -58,9 +58,11 @@ public class ChunkUsingLists {
 
     private void chunkArrayByCopying(List<Integer> numArray, int chunkSize) {
         List<List<Integer>> chunkedList = new ArrayList<>();
-        for(int i=0; i+1 <= numArray.size(); i+=chunkSize){
-            int to = i+chunkSize > numArray.size()-1? numArray.size() : i+chunkSize;
-            Integer[] subArray = Arrays.copyOfRange(numArray.toArray(), i, to, Integer[].class);
+        int numberOfSubArrays = (int) Math.ceil((double)numArray.size()/chunkSize);
+        for(int i=0; i < numberOfSubArrays; i++){
+            int from = i * chunkSize;
+            int to = from +chunkSize > numArray.size()-1? numArray.size() : from +chunkSize;
+            Integer[] subArray = Arrays.copyOfRange(numArray.toArray(), from, to, Integer[].class);
             chunkedList.add(Arrays.asList(subArray));
         }
         System.out.println(chunkedList);
