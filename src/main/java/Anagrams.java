@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Anagrams {
@@ -15,7 +16,7 @@ public class Anagrams {
     public static void main(String[] args) {
         System.out.println("*****" + Anagrams.class.getName() + "*******");
         Anagrams anagrams = new Anagrams();
-        while(true) {
+        while (true) {
             Scanner scan = new Scanner(System.in);
             System.out.println("Enter two comma separated string to check if they are anagrams Type Q to Quit: ");
 
@@ -27,32 +28,43 @@ public class Anagrams {
             }
             try {
                 String[] inputs = input.split(",");
-                if(inputs.length!=2) {
+                if (inputs.length != 2) {
                     System.out.println("Please enter only two strings separated by comma");
                     System.exit(0);
                 }
                 anagrams.isAnagram(inputs[0], inputs[1]);
-            }catch(Exception e){
+                anagrams.isAnagramUsingSort(inputs[0], inputs[1]);
+            } catch (Exception e) {
                 System.out.println("Input issues.");
                 e.printStackTrace();
             }
-
         }
-
     }
 
     private void isAnagram(String inputOne, String inputTwo) {
-        String cleanOne = inputOne.replaceAll("[^a-zA-Z]", "");
-        String cleanTwo = inputTwo.replaceAll("[^a-zA-Z]", "");
-        System.out.println(cleanOne+" "+cleanTwo);
-        Map<String, Long> charToCountMapOne = Arrays.asList(cleanOne.split("")).stream().collect(Collectors.toMap(x->x.toUpperCase(), x-> Arrays.asList(cleanOne.split("")).stream().filter(y -> y.equalsIgnoreCase(x)).count(), (a,b)->a));
-        Map<String, Long> charToCountMapTwo = Arrays.asList(cleanTwo.split("")).stream().collect(Collectors.toMap(x->x.toUpperCase(), x-> Arrays.asList(cleanTwo.split("")).stream().filter(y -> y.equalsIgnoreCase(x)).count(), (a,b)->a));
+        String cleanOne = inputOne.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        String cleanTwo = inputTwo.replaceAll("[^a-zA-Z]", "").toLowerCase();
+        if (cleanOne.length() != cleanTwo.length()) {
+            System.out.println("The provided strings are not anagrams.");
+            return;
+        }
 
-        if(charToCountMapOne.equals(charToCountMapTwo)) {
+        Map<String, Long> charToCountMapOne = Arrays.asList(cleanOne.split("")).stream().collect(Collectors.toMap(x -> x, x -> Arrays.asList(cleanOne.split("")).stream().filter(y -> y.equals(x)).count(), (a, b) -> a));
+        Map<String, Long> charToCountMapTwo = Arrays.asList(cleanTwo.split("")).stream().collect(Collectors.toMap(x -> x, x -> Arrays.asList(cleanTwo.split("")).stream().filter(y -> y.equals(x)).count(), (a, b) -> a));
+        if (charToCountMapOne.equals(charToCountMapTwo)) {
             System.out.println("The provided strings are anagrams");
         } else {
             System.out.println("The provided strings are not anagrams.");
         }
+    }
+
+    private void isAnagramUsingSort(String inputOne, String inputTwo) {
+        List<String> cleanOne = Arrays.asList(inputOne.replaceAll("[^a-zA-Z]", "").toLowerCase().split(""));
+        List<String> cleanTwo = Arrays.asList(inputTwo.replaceAll("[^a-zA-Z]", "").toLowerCase().split(""));
+        Collections.sort(cleanOne);
+        Collections.sort(cleanTwo);
+        System.out.println(cleanOne+" "+cleanTwo);
+        System.out.println(cleanOne.equals(cleanTwo));
 
     }
 }
