@@ -27,6 +27,7 @@ public class Capitalize {
             }
             try {
                 capitalize.printCapitalized(input);
+                capitalize.printCapitalizedBasedOnSpace(input);
             } catch (Exception e) {
                 System.out.println("Input issues.");
                 e.printStackTrace();
@@ -46,5 +47,18 @@ public class Capitalize {
             result = String.join (delimiter, result, strFirstChar+Arrays.asList(strRest).stream().collect(Collectors.joining()));
         }
         System.out.println(result);
+    }
+
+    private void printCapitalizedBasedOnSpace(String input){
+        String capitalizedString = input.substring(0,1).toUpperCase();
+        String [] inputArray = input.split("");
+        for(int i = 1; i<inputArray.length; i++){
+            if(inputArray[i-1].equals(" ")) {
+                capitalizedString = capitalizedString + inputArray[i].toUpperCase();
+            } else{
+                capitalizedString = capitalizedString + inputArray[i];
+            }
+        }
+        System.out.println(capitalizedString);
     }
 }
