@@ -47,7 +47,6 @@ public class Steps {
             }
 
         }
-
     }
 
     private void printSteps(Integer number) {
