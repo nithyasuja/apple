@@ -36,7 +36,8 @@ public class Pyramid {
                     System.out.println("Not supported. Please enter a whole number between 0 and 100");
                     continue;
                 }
-                pyramid.printStepsRowColumnStairs(number);
+                pyramid.printPyramidStairs(number);
+                pyramid.printRecursivePyramid(number, 1, "");
             }catch(Exception e){
                 System.out.println("Please enter a Positive Whole number.");
             }
@@ -44,7 +45,7 @@ public class Pyramid {
         }
     }
 
-    private void printStepsRowColumnStairs(Integer number) {
+    private void printPyramidStairs(Integer number) {
         int numberOfColumns = number*2 -1;
         for(int i =1; i<=number; i++) {
             String stair = "";
@@ -63,7 +64,30 @@ public class Pyramid {
             }
             System.out.println(stair);
         }
+    }
 
+    private void printRecursivePyramid (Integer total, int row, String stair) {
+        int numberOfColumns = total*2 -1;
+        if(row > total) {
+            return;
+        }
+        int numberOfHashes = row * 2 -1;
+        //row 2, total 5, 3 hashes, 9 total columns , start = ((9 -3) /2 )+1, end (9-3)/2 +3
+        //row 3, total 5, 5 hashes, 9 columns, start = ((9-5)/2 )+ 1  end ((9-5)/2) + 5
+        int startOfHash = (int) Math.ceil((double)(numberOfColumns - numberOfHashes)/2) +1;
+        int endOfHash = (int) Math.ceil((double)(numberOfColumns - numberOfHashes)/2) + numberOfHashes;
+        //System.out.println(numberOfColumns+" "+numberOfHashes+" "+startOfHash+" "+endOfHash);
+        if(stair.length() == numberOfColumns) {
+            System.out.println(stair);
+            stair = "";
+            row++;
+            printRecursivePyramid(total, row, stair);
+            return;
+        }
+
+        stair = (stair.length()+1 <startOfHash || stair.length()+1 >endOfHash)? stair + " " : stair + "#";
+
+        printRecursivePyramid(total, row, stair);
 
     }
 }
